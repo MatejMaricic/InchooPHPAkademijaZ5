@@ -19,7 +19,7 @@ spl_autoload_register(function ($class) {
 
    $classPath = strtr($class, '\\', DIRECTORY_SEPARATOR) . '.php';
 
-   return include  $classPath;
+   return include $classPath;
 });
 
 App::start();
