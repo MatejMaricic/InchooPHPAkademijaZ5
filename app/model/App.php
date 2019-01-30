@@ -8,6 +8,7 @@ final class App
         $pathInfo = Request::pathInfo();
         $pathInfo = trim($pathInfo, '/');
         $pathParts = explode('/', $pathInfo);
+        $controllersPath = BP . 'app/controller/';
 
 
         if (!isset($pathParts[0]) || empty($pathParts[0])){
@@ -25,11 +26,14 @@ final class App
         }
 
 
-        if (class_exists($controller) && method_exists($controller, $action)) {
+        if (file_exists($controllersPath.$controller. '.php') && class_exists($controller) && method_exists($controller, $action)) {
             $controllerInstance = new $controller();
             $controllerInstance ->$action();
+            var_dump($controller);
         } else {
+
             header("HTTP/1.0 404 Not Found");
+
         }
     }
 
