@@ -26,13 +26,46 @@ final class App
         }
 
 
-        if (file_exists($controllersPath.$controller. '.php') && class_exists($controller) && method_exists($controller, $action)) {
-            $controllerInstance = new $controller();
-            $controllerInstance ->$action();
+
+        if (file_exists($controllersPath.$controller. '.php')) {
+
+           if (class_exists($controller) && method_exists($controller, $action)) {
+
+               $controllerInstance = new $controller();
+               $controllerInstance ->$action();
+
+           }elseif (class_exists($controller) && !method_exists($controller,$action)){
+
+               header("HTTP/1.0 404 Not Found");
+
+           }
+
+           else {
+               $controller = 'IndexController';
+               $action = 'index';
+               $controllerInstance = new $controller();
+               $controllerInstance ->$action();
+
+
+           }
+
+
+
 
         } else {
 
-            header("HTTP/1.0 404 Not Found");
+            if (!$action || ($action === 'index' && $controller = 'IndexController')){
+
+                $controller = 'IndexController';
+                $controllerInstance = new $controller();
+                $controllerInstance ->$action();
+
+
+            }else {
+
+                    header("HTTP/1.0 404 Not Found");
+            }
+
 
         }
     }
