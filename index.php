@@ -1,14 +1,16 @@
 <?php
 
 define('BP', __DIR__ . '/');
+define('MODEL_PATH', 'app/model');
+define('CONTROLLER_PATH', 'app/controller');
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
 $includePaths = implode(PATH_SEPARATOR, array(
-   BP . 'app/model',
-    BP . 'app/controller'
+    BP . MODEL_PATH,
+    BP . CONTROLLER_PATH
 
 ));
 
